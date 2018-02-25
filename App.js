@@ -4,14 +4,16 @@ import { StyleSheet, Text, View, AppRegistry, ScrollView, Image, TouchableOpacit
 import Header from './Header';
 import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation';
 
-function Home() {
+function Home ({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>HOME</Text>
+      <Text>HOME VIEW</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+        <Text>To Dashboard</Text>
+      </TouchableOpacity>
     </View>
   )
 }
-
 function Dashboard() {
   return (
     <View style={styles.container}>
@@ -19,27 +21,27 @@ function Dashboard() {
     </View>
   )
 }
-
-const Tabs = TabNavigator({
+const Stack = StackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: {
-      tabBarIcon: () => <FontAwesome name='home' size={30} color="black" />
-    }
+    title: 'Home',
   },
   Dashboard: {
     screen: Dashboard,
     navigationOptions: {
-      tabBarIcon: () => <FontAwesome name='dashboard' size={30} color="black" />
+      title: 'Dashboard',
+      headerTintColor: 'red',
+      headerStyle: {
+        backgroundColor: 'green'
+      }
     }
-  }
+  },
 })
-
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Tabs />
+        <Stack />
       </View>
     )
   }
