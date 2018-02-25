@@ -1,43 +1,49 @@
 import React from 'react';
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, Text, View, AppRegistry, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry, ScrollView, Image, TouchableOpacity, Title, Animated } from 'react-native';
 import Header from './Header';
+import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation';
 
-const dummy = key => (
-  <Text key={key}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, animi eveniet? Ratione deserunt beatae reprehenderit neque ab asperiores. Pariatur ullam consequuntur cum accusamus, tempore voluptatem similique aliquam veniam eaque non.</Text>
-);
+function Home() {
+  return (
+    <View style={styles.container}>
+      <Text>HOME</Text>
+    </View>
+  )
+}
 
-const FlexBoxExamples = props => (
-  <View style={styles.container}>
-    <Header />
-    <View style={{justifyContent: 'space-between', flexDirection: 'row',paddingTop: 5, paddingBottom: 5, backgroundColor: 'orange', minHeight: 60}}>
-      <View style={{backgroundColor: 'green', width: 60, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>LEFT</Text>
-      </View>
-      <View style={{backgroundColor: 'pink', flex: 1, paddingTop: 5, paddingBottom: 5, justifyContent: 'space-around'}}>
-        <Text>Event description</Text>
-        <Text style={{paddingTop:5, paddingBottom: 5, fontSize: 20}}>Selection Title</Text>
-        <Text>Market Title</Text>
-      </View>
-      <View style={{backgroundColor: 'grey', width: 60, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>RIGHT</Text>
-      </View>
+function Dashboard() {
+  return (
+    <View style={styles.container}>
+      <Text>Dashboard</Text>
     </View>
-    <View style={styles.innerContainer}>
-      <Image source={require('./malaga.jpg')}/>
-      <ScrollView style={{flex:1}}>
-        <Text>Zacatek...</Text>
-        {[...Array(10)].map((_, i) => dummy(i))}
-        <Text>Konec...</Text>
-      </ScrollView>
-      <View style={{flex:1, flexDirection: 'column', alignItems: 'flex-end'}}>
-        <Text style={{backgroundColor: 'red'}}>
-          {['Spodek, '].concat([...Array(1)].map((_, i) => dummy(i)))}
-        </Text>
+  )
+}
+
+const Tabs = TabNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      tabBarIcon: () => <FontAwesome name='home' size={30} color="black" />
+    }
+  },
+  Dashboard: {
+    screen: Dashboard,
+    navigationOptions: {
+      tabBarIcon: () => <FontAwesome name='dashboard' size={30} color="black" />
+    }
+  }
+})
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Tabs />
       </View>
-    </View>
-  </View>
-)
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -57,5 +63,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-
-export default FlexBoxExamples;

@@ -1,20 +1,27 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
-const Header = () => {
+const Header = ({ navigation, title }) => {
+  const goBack = () => {
+    const backAction = NavigationActions.back();
+    navigation.dispatch(backAction)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <MaterialIcons
-          name='arrow-back'
-          color={'black'}
-          size={35}
-        />
+        <TouchableOpacity onPress={() => goBack()}>
+          <MaterialIcons
+            name='arrow-back'
+            color={'black'}
+            size={35}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>
-          Tohle je title
+          {title}
         </Text>
       </View>
       <View style={styles.right}>
